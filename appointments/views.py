@@ -176,14 +176,25 @@ def book_appointment_from_DoctorList(request, doctor_id):
 @login_required
 @role_required(["PATIENT"])
 def my_appointments(request):
-    appointments = Appointment.objects.filter(
-        patient=request.user
-    ).order_by('-start_datetime')
+    qs = Appointment.objects.filter(patient=request.user).order_by('-start_datetime')
+
+    selected_date = request.GET.get('date')
+    selected_status = request.GET.get('status')
+
+    if selected_date:
+        try:
+            qs = qs.filter(start_datetime__date=datetime.fromisoformat(selected_date).date())
+        except ValueError:
+            messages.warning(request, 'Invalid date format.')
+
+    if selected_status:
+        qs = qs.filter(status=selected_status)
 
     return render(request, 'appointments/my_appointments.html', {
-        'appointments': appointments
+        'appointments': qs,
+        'selected_date': selected_date,
+        'selected_status': selected_status,
     })
-
 
 @login_required
 def cancel_appointment(request, appointment_id):
