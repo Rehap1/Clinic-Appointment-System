@@ -176,6 +176,7 @@ def book_appointment_from_DoctorList(request, doctor_id):
 @login_required
 @role_required(["PATIENT"])
 def my_appointments(request):
+<<<<<<< HEAD
     qs = Appointment.objects.filter(patient=request.user).order_by('-start_datetime')
 
     selected_date = request.GET.get('date')
@@ -196,6 +197,17 @@ def my_appointments(request):
         'selected_status': selected_status,
     })
 
+=======
+    appointments = Appointment.objects.filter(
+        patient=request.user
+    ).order_by('-start_datetime')
+
+    return render(request, 'appointments/my_appointments.html', {
+        'appointments': appointments
+    })
+
+
+>>>>>>> f329442 (Add Docker support and Kubernetes deployment for Django Clinic app with PostgreSQL integration)
 @login_required
 def cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)

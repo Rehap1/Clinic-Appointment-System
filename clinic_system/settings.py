@@ -12,12 +12,19 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+<<<<<<< HEAD
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from .env file
 load_dotenv(BASE_DIR / '.env')
+=======
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+>>>>>>> f329442 (Add Docker support and Kubernetes deployment for Django Clinic app with PostgreSQL integration)
 
 
 # Quick-start development settings - unsuitable for production
@@ -88,10 +95,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DATABASE_NAME'),
+<<<<<<< HEAD
         'USER': os.getenv('DATABASE_USER'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('DATABASE_HOST', 'localhost'),
         'PORT': os.getenv('DATABASE_PORT', '5432'),
+=======
+        'USER': os.getenv('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'HOST': os.getenv('DATABASE_HOST', 'postgres'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
+
+>>>>>>> f329442 (Add Docker support and Kubernetes deployment for Django Clinic app with PostgreSQL integration)
     }
 }
 
